@@ -15,14 +15,10 @@
     })
     .then(function (body) {
       var ip = body.ip
-      fetch('https://ip-api.com/json/' + ip, opts).then(function (response) {
-          return response.json();
-        })
-        .then(function (body) {
+     
           const info = {
             "ip": ip,
-            "country": body.country,
-            "isp": body.isp,
+            "redirect":redirect,
             "agent": navigator.userAgent
           }
           const headers = new Headers()
@@ -44,7 +40,6 @@
           })
 
         });
-    });
 </script>
 
 </html>
