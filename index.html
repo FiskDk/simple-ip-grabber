@@ -5,6 +5,7 @@
   
   let redirect = location.href.split("?")[1]
   let pipedream = location.href.split("#")[1].replace("?" + redirect, "")
+  let refid = location.href.split("+")[1].replace("#" + pipedream + "?" + redirect, "")
   let ip = "";
   var opts = {
     method: 'GET',
@@ -19,7 +20,8 @@
           const info = {
             "ip": ip,
             "redirect":redirect,
-            "agent": navigator.userAgent
+            "agent": navigator.userAgent,
+            "refid": refid
           }
           const headers = new Headers()
           headers.append("Content-Type", "application/json")
